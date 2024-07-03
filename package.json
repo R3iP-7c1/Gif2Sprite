@@ -9,10 +9,13 @@
     "preview": "vite preview"
   },
   "devDependencies": {
+    "@types/get-pixels": "^3.3.4",
     "typescript": "^5.2.2",
     "vite": "^5.3.1"
   },
   "dependencies": {
-    "gifuct-js": "^2.1.2"
+    "get-pixels": "^3.3.3",
+    "gifuct-js": "^2.1.2",
+    "path-browserify": "^1.0.1"
   }
 }
