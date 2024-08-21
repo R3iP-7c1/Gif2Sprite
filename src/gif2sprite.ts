@@ -1,24 +1,34 @@
 import { NdArray } from "ndarray";
 import getPixels from "get-pixels";
+import { decompressFrames, parseGIF } from "gifuct-js";
 
 export interface G2Sprite {
   animated: boolean,
   width: number,
   height: number,
-  spriteData: string
+  spriteData: string,
+  delayArray?: number[]
 }
 
 export const gif2Sprite = async (url: string): Promise<G2Sprite> => {
-  return getImageDataArray(url);
+  const response = await fetch(url);
+  const g2sprite: G2Sprite = await getImageDataArray(url);
+
+  const arrayBuffer = await response.arrayBuffer();
+  const parsedGif = parseGIF(arrayBuffer);
+  const frames = decompressFrames(parsedGif, true);
+  if (g2sprite.animated) g2sprite.delayArray = frames.map(frame => frame.delay);
+
+  return g2sprite;
 }
 
 const getImageDataArray = (url: string): Promise<G2Sprite> => {
   return new Promise((resolve, reject) => {
     getPixels(url, (err, pixels) => {
       if (err) {
+        console.warn(err);
         reject(err);
       } else {
-        console.log(pixels);
         const imageNdarrayArray: NdArray<Uint8Array>[] = [];
         const { shape } = pixels;
 
@@ -49,10 +59,6 @@ const getImageDataArray = (url: string): Promise<G2Sprite> => {
           }
 
           resolve(generateSprite(imageNdarrayArray, width, height));
-        // } else {
-        //   resolve(shape);
-        // }
-
       }
     });
   });
@@ -64,18 +70,17 @@ const generateSprite = (imageNdarrayArray: NdArray<Uint8Array>[], width: number,
   canvas.width = width * imageNdarrayArray.length;
   canvas.height = height;
     
-    imageNdarrayArray.forEach((imageNdarray, index) => {
-      const imageData = ctx!.createImageData(width, height);
-      imageData.data.set(imageNdarray.data.slice(width * height * 4 * index, width * height * 4 * (index + 1)));
+  imageNdarrayArray.forEach((imageNdarray, index) => {
+    const imageData = ctx!.createImageData(width, height);
+    imageData.data.set(imageNdarray.data.slice(width * height * 4 * index, width * height * 4 * (index + 1)));
 
-      ctx!.putImageData(imageData, width * index, 0);
-    });
+    ctx!.putImageData(imageData, width * index, 0);
+  });
 
   return {
     animated: imageNdarrayArray.length > 1,
     width,
     height,
-    spriteData: canvas.toDataURL()
+    spriteData: canvas.toDataURL(),
   }
-  // return canvas.toDataURL();
 }
