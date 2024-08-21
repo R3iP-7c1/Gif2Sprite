@@ -1,17 +1,27 @@
 {
-  "name": "giftosprite",
+  "name": "gif2sprite",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
+  "author": "Pi3R",
+  "keywords": [
+    "convert",
+    "animated gif",
+    "gif",
+    "sprite",
+    "image"
+  ],
   "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
+    "dev": "yarn vite",
+    "build": "yarn vite build"
   },
   "devDependencies": {
     "@types/get-pixels": "^3.3.4",
     "typescript": "^5.2.2",
-    "vite": "^5.3.1"
+    "vite": "^5.3.1",
+    "vite-plugin-dts": "^4.0.3"
   },
   "dependencies": {
     "get-pixels": "^3.3.3",
