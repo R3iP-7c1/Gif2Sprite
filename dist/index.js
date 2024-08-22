@@ -25,32 +25,32 @@ function T(t) {
     throw new TypeError("Path must be a string. Received " + JSON.stringify(t));
 }
 function de(t, e) {
-  for (var r = "", a = 0, n = -1, i = 0, o, s = 0; s <= t.length; ++s) {
-    if (s < t.length)
-      o = t.charCodeAt(s);
+  for (var r = "", a = 0, n = -1, i = 0, o, f = 0; f <= t.length; ++f) {
+    if (f < t.length)
+      o = t.charCodeAt(f);
     else {
       if (o === 47)
         break;
       o = 47;
     }
     if (o === 47) {
-      if (!(n === s - 1 || i === 1)) if (n !== s - 1 && i === 2) {
+      if (!(n === f - 1 || i === 1)) if (n !== f - 1 && i === 2) {
         if (r.length < 2 || a !== 2 || r.charCodeAt(r.length - 1) !== 46 || r.charCodeAt(r.length - 2) !== 46) {
           if (r.length > 2) {
             var l = r.lastIndexOf("/");
             if (l !== r.length - 1) {
-              l === -1 ? (r = "", a = 0) : (r = r.slice(0, l), a = r.length - 1 - r.lastIndexOf("/")), n = s, i = 0;
+              l === -1 ? (r = "", a = 0) : (r = r.slice(0, l), a = r.length - 1 - r.lastIndexOf("/")), n = f, i = 0;
               continue;
             }
           } else if (r.length === 2 || r.length === 1) {
-            r = "", a = 0, n = s, i = 0;
+            r = "", a = 0, n = f, i = 0;
             continue;
           }
         }
         e && (r.length > 0 ? r += "/.." : r = "..", a = 2);
       } else
-        r.length > 0 ? r += "/" + t.slice(n + 1, s) : r = t.slice(n + 1, s), a = s - n - 1;
-      n = s, i = 0;
+        r.length > 0 ? r += "/" + t.slice(n + 1, f) : r = t.slice(n + 1, f), a = f - n - 1;
+      n = f, i = 0;
     } else o === 46 && i !== -1 ? ++i : i = -1;
   }
   return r;
@@ -91,24 +91,24 @@ var X = {
       ;
     for (var n = e.length, i = n - a, o = 1; o < r.length && r.charCodeAt(o) === 47; ++o)
       ;
-    for (var s = r.length, l = s - o, c = i < l ? i : l, d = -1, f = 0; f <= c; ++f) {
-      if (f === c) {
-        if (l > c) {
-          if (r.charCodeAt(o + f) === 47)
-            return r.slice(o + f + 1);
-          if (f === 0)
-            return r.slice(o + f);
-        } else i > c && (e.charCodeAt(a + f) === 47 ? d = f : f === 0 && (d = 0));
+    for (var f = r.length, l = f - o, u = i < l ? i : l, d = -1, s = 0; s <= u; ++s) {
+      if (s === u) {
+        if (l > u) {
+          if (r.charCodeAt(o + s) === 47)
+            return r.slice(o + s + 1);
+          if (s === 0)
+            return r.slice(o + s);
+        } else i > u && (e.charCodeAt(a + s) === 47 ? d = s : s === 0 && (d = 0));
         break;
       }
-      var u = e.charCodeAt(a + f), p = r.charCodeAt(o + f);
-      if (u !== p)
+      var c = e.charCodeAt(a + s), p = r.charCodeAt(o + s);
+      if (c !== p)
         break;
-      u === 47 && (d = f);
+      c === 47 && (d = s);
     }
     var h = "";
-    for (f = a + d + 1; f <= n; ++f)
-      (f === n || e.charCodeAt(f) === 47) && (h.length === 0 ? h += ".." : h += "/..");
+    for (s = a + d + 1; s <= n; ++s)
+      (s === n || e.charCodeAt(s) === 47) && (h.length === 0 ? h += ".." : h += "/..");
     return h.length > 0 ? h + r.slice(o + d) : (o += d, r.charCodeAt(o) === 47 && ++o, r.slice(o));
   },
   _makeLong: function(e) {
@@ -132,16 +132,16 @@ var X = {
     var a = 0, n = -1, i = !0, o;
     if (r !== void 0 && r.length > 0 && r.length <= e.length) {
       if (r.length === e.length && r === e) return "";
-      var s = r.length - 1, l = -1;
+      var f = r.length - 1, l = -1;
       for (o = e.length - 1; o >= 0; --o) {
-        var c = e.charCodeAt(o);
-        if (c === 47) {
+        var u = e.charCodeAt(o);
+        if (u === 47) {
           if (!i) {
             a = o + 1;
             break;
           }
         } else
-          l === -1 && (i = !1, l = o + 1), s >= 0 && (c === r.charCodeAt(s) ? --s === -1 && (n = o) : (s = -1, n = l));
+          l === -1 && (i = !1, l = o + 1), f >= 0 && (u === r.charCodeAt(f) ? --f === -1 && (n = o) : (f = -1, n = l));
       }
       return a === n ? n = l : n === -1 && (n = e.length), e.slice(a, n);
     } else {
@@ -157,16 +157,16 @@ var X = {
   },
   extname: function(e) {
     T(e);
-    for (var r = -1, a = 0, n = -1, i = !0, o = 0, s = e.length - 1; s >= 0; --s) {
-      var l = e.charCodeAt(s);
+    for (var r = -1, a = 0, n = -1, i = !0, o = 0, f = e.length - 1; f >= 0; --f) {
+      var l = e.charCodeAt(f);
       if (l === 47) {
         if (!i) {
-          a = s + 1;
+          a = f + 1;
           break;
         }
         continue;
       }
-      n === -1 && (i = !1, n = s + 1), l === 46 ? r === -1 ? r = s : o !== 1 && (o = 1) : r !== -1 && (o = -1);
+      n === -1 && (i = !1, n = f + 1), l === 46 ? r === -1 ? r = f : o !== 1 && (o = 1) : r !== -1 && (o = -1);
     }
     return r === -1 || n === -1 || // We saw a non-dot character immediately before the dot
     o === 0 || // The (right-most) trimmed path component is exactly '..'
@@ -183,19 +183,19 @@ var X = {
     if (e.length === 0) return r;
     var a = e.charCodeAt(0), n = a === 47, i;
     n ? (r.root = "/", i = 1) : i = 0;
-    for (var o = -1, s = 0, l = -1, c = !0, d = e.length - 1, f = 0; d >= i; --d) {
+    for (var o = -1, f = 0, l = -1, u = !0, d = e.length - 1, s = 0; d >= i; --d) {
       if (a = e.charCodeAt(d), a === 47) {
-        if (!c) {
-          s = d + 1;
+        if (!u) {
+          f = d + 1;
           break;
         }
         continue;
       }
-      l === -1 && (c = !1, l = d + 1), a === 46 ? o === -1 ? o = d : f !== 1 && (f = 1) : o !== -1 && (f = -1);
+      l === -1 && (u = !1, l = d + 1), a === 46 ? o === -1 ? o = d : s !== 1 && (s = 1) : o !== -1 && (s = -1);
     }
     return o === -1 || l === -1 || // We saw a non-dot character immediately before the dot
-    f === 0 || // The (right-most) trimmed path component is exactly '..'
-    f === 1 && o === l - 1 && o === s + 1 ? l !== -1 && (s === 0 && n ? r.base = r.name = e.slice(1, l) : r.base = r.name = e.slice(s, l)) : (s === 0 && n ? (r.name = e.slice(1, o), r.base = e.slice(1, l)) : (r.name = e.slice(s, o), r.base = e.slice(s, l)), r.ext = e.slice(o, l)), s > 0 ? r.dir = e.slice(0, s - 1) : n && (r.dir = "/"), r;
+    s === 0 || // The (right-most) trimmed path component is exactly '..'
+    s === 1 && o === l - 1 && o === f + 1 ? l !== -1 && (f === 0 && n ? r.base = r.name = e.slice(1, l) : r.base = r.name = e.slice(f, l)) : (f === 0 && n ? (r.name = e.slice(1, o), r.base = e.slice(1, l)) : (r.name = e.slice(f, o), r.base = e.slice(f, l)), r.ext = e.slice(o, l)), f > 0 ? r.dir = e.slice(0, f - 1) : n && (r.dir = "/"), r;
   },
   sep: "/",
   delimiter: ":",
@@ -252,17 +252,17 @@ function Fe(t, e) {
   }
   var n = ["'use strict'"], i = Ce(e), o = i.map(function(v) {
     return "i" + v;
-  }), s = "this.offset+" + i.map(function(v) {
+  }), f = "this.offset+" + i.map(function(v) {
     return "this.stride[" + v + "]*i" + v;
   }).join("+"), l = i.map(function(v) {
     return "b" + v;
-  }).join(","), c = i.map(function(v) {
+  }).join(","), u = i.map(function(v) {
     return "c" + v;
   }).join(",");
   n.push(
-    "function " + r + "(a," + l + "," + c + ",d){this.data=a",
+    "function " + r + "(a," + l + "," + u + ",d){this.data=a",
     "this.shape=[" + l + "]",
-    "this.stride=[" + c + "]",
+    "this.stride=[" + u + "]",
     "this.offset=d|0}",
     "var proto=" + r + ".prototype",
     "proto.dtype='" + t + "'",
@@ -276,10 +276,10 @@ function Fe(t, e) {
     "var s0=Math.abs(this.stride[0]),s1=Math.abs(this.stride[1]),s2=Math.abs(this.stride[2]);if(s0>s1){if(s1>s2){return [2,1,0];}else if(s0>s2){return [1,2,0];}else{return [1,0,2];}}else if(s0>s2){return [2,0,1];}else if(s2>s1){return [0,1,2];}else{return [0,2,1];}}})"
   )) : n.push("ORDER})")), n.push(
     "proto.set=function " + r + "_set(" + o.join(",") + ",v){"
-  ), a ? n.push("return this.data.set(" + s + ",v)}") : n.push("return this.data[" + s + "]=v}"), n.push("proto.get=function " + r + "_get(" + o.join(",") + "){"), a ? n.push("return this.data.get(" + s + ")}") : n.push("return this.data[" + s + "]}"), n.push(
+  ), a ? n.push("return this.data.set(" + f + ",v)}") : n.push("return this.data[" + f + "]=v}"), n.push("proto.get=function " + r + "_get(" + o.join(",") + "){"), a ? n.push("return this.data.get(" + f + ")}") : n.push("return this.data[" + f + "]}"), n.push(
     "proto.index=function " + r + "_index(",
     o.join(),
-    "){return " + s + "}"
+    "){return " + f + "}"
   ), n.push("proto.hi=function " + r + "_hi(" + o.join(",") + "){return new " + r + "(this.data," + i.map(function(v) {
     return ["(typeof i", v, "!=='number'||i", v, "<0)?this.shape[", v, "]:i", v, "|0"].join("");
   }).join(",") + "," + i.map(function(v) {
@@ -287,13 +287,13 @@ function Fe(t, e) {
   }).join(",") + ",this.offset)}");
   var d = i.map(function(v) {
     return "a" + v + "=this.shape[" + v + "]";
-  }), f = i.map(function(v) {
+  }), s = i.map(function(v) {
     return "c" + v + "=this.stride[" + v + "]";
   });
-  n.push("proto.lo=function " + r + "_lo(" + o.join(",") + "){var b=this.offset,d=0," + d.join(",") + "," + f.join(","));
-  for (var u = 0; u < e; ++u)
+  n.push("proto.lo=function " + r + "_lo(" + o.join(",") + "){var b=this.offset,d=0," + d.join(",") + "," + s.join(","));
+  for (var c = 0; c < e; ++c)
     n.push(
-      "if(typeof i" + u + "==='number'&&i" + u + ">=0){d=i" + u + "|0;b+=c" + u + "*d;a" + u + "-=d}"
+      "if(typeof i" + c + "==='number'&&i" + c + ">=0){d=i" + c + "|0;b+=c" + c + "*d;a" + c + "-=d}"
     );
   n.push("return new " + r + "(this.data," + i.map(function(v) {
     return "a" + v;
@@ -304,25 +304,25 @@ function Fe(t, e) {
   }).join(",") + "," + i.map(function(v) {
     return "b" + v + "=this.stride[" + v + "]";
   }).join(",") + ",c=this.offset,d=0,ceil=Math.ceil");
-  for (var u = 0; u < e; ++u)
+  for (var c = 0; c < e; ++c)
     n.push(
-      "if(typeof i" + u + "==='number'){d=i" + u + "|0;if(d<0){c+=b" + u + "*(a" + u + "-1);a" + u + "=ceil(-a" + u + "/d)}else{a" + u + "=ceil(a" + u + "/d)}b" + u + "*=d}"
+      "if(typeof i" + c + "==='number'){d=i" + c + "|0;if(d<0){c+=b" + c + "*(a" + c + "-1);a" + c + "=ceil(-a" + c + "/d)}else{a" + c + "=ceil(a" + c + "/d)}b" + c + "*=d}"
     );
   n.push("return new " + r + "(this.data," + i.map(function(v) {
     return "a" + v;
   }).join(",") + "," + i.map(function(v) {
     return "b" + v;
   }).join(",") + ",c)}");
-  for (var p = new Array(e), h = new Array(e), u = 0; u < e; ++u)
-    p[u] = "a[i" + u + "]", h[u] = "b[i" + u + "]";
+  for (var p = new Array(e), h = new Array(e), c = 0; c < e; ++c)
+    p[c] = "a[i" + c + "]", h[c] = "b[i" + c + "]";
   n.push(
     "proto.transpose=function " + r + "_transpose(" + o + "){" + o.map(function(v, y) {
       return v + "=(" + v + "===undefined?" + y + ":" + v + "|0)";
     }).join(";"),
     "var a=this.shape,b=this.stride;return new " + r + "(this.data," + p.join(",") + "," + h.join(",") + ",this.offset)}"
   ), n.push("proto.pick=function " + r + "_pick(" + o + "){var a=[],b=[],c=this.offset");
-  for (var u = 0; u < e; ++u)
-    n.push("if(typeof i" + u + "==='number'&&i" + u + ">=0){c=(c+this.stride[" + u + "]*i" + u + ")|0}else{a.push(this.shape[" + u + "]);b.push(this.stride[" + u + "])}");
+  for (var c = 0; c < e; ++c)
+    n.push("if(typeof i" + c + "==='number'&&i" + c + ">=0){c=(c+this.stride[" + c + "]*i" + c + ")|0}else{a.push(this.shape[" + c + "]);b.push(this.stride[" + c + "])}");
   n.push("var ctor=CTOR_LIST[a.length+1];return ctor(this.data,a,b,c)}"), n.push("return function construct_" + r + "(data,shape,stride,offset){return new " + r + "(data," + i.map(function(v) {
     return "shape[" + v + "]";
   }).join(",") + "," + i.map(function(v) {
@@ -380,8 +380,8 @@ var K = {
 };
 function Me(t, e, r, a) {
   if (t === void 0) {
-    var c = K.array[0];
-    return c([]);
+    var u = K.array[0];
+    return u([]);
   } else typeof t == "number" && (t = [t]);
   e === void 0 && (e = [t.length]);
   var n = e.length;
@@ -395,14 +395,14 @@ function Me(t, e, r, a) {
     for (var i = 0; i < n; ++i)
       r[i] < 0 && (a -= (e[i] - 1) * r[i]);
   }
-  for (var s = Pe(t), l = K[s]; l.length <= n + 1; )
-    l.push(Fe(s, l.length - 1));
-  var c = l[n + 1];
-  return c(t, e, r, a);
+  for (var f = Pe(t), l = K[f]; l.length <= n + 1; )
+    l.push(Fe(f, l.length - 1));
+  var u = l[n + 1];
+  return u(t, e, r, a);
 }
 var Oe = Me, fe = {}, ze, Ge;
 function Re(t, e, r, i) {
-  var n = 0, i = i === void 0 ? {} : i, o = i.loop === void 0 ? null : i.loop, s = i.palette === void 0 ? null : i.palette;
+  var n = 0, i = i === void 0 ? {} : i, o = i.loop === void 0 ? null : i.loop, f = i.palette === void 0 ? null : i.palette;
   if (e <= 0 || r <= 0 || e > 65535 || r > 65535)
     throw new Error("Width/Height invalid.");
   function l(v) {
@@ -414,20 +414,20 @@ function Re(t, e, r, i) {
     return y;
   }
   t[n++] = 71, t[n++] = 73, t[n++] = 70, t[n++] = 56, t[n++] = 57, t[n++] = 97;
-  var c = 0, d = 0;
-  if (s !== null) {
-    for (var f = l(s); f >>= 1; ) ++c;
-    if (f = 1 << c, --c, i.background !== void 0) {
-      if (d = i.background, d >= f)
+  var u = 0, d = 0;
+  if (f !== null) {
+    for (var s = l(f); s >>= 1; ) ++u;
+    if (s = 1 << u, --u, i.background !== void 0) {
+      if (d = i.background, d >= s)
         throw new Error("Background index out of range.");
       if (d === 0)
         throw new Error("Background index explicitly passed as 0.");
     }
   }
-  if (t[n++] = e & 255, t[n++] = e >> 8 & 255, t[n++] = r & 255, t[n++] = r >> 8 & 255, t[n++] = (s !== null ? 128 : 0) | // Global Color Table Flag.
-  c, t[n++] = d, t[n++] = 0, s !== null)
-    for (var u = 0, p = s.length; u < p; ++u) {
-      var h = s[u];
+  if (t[n++] = e & 255, t[n++] = e >> 8 & 255, t[n++] = r & 255, t[n++] = r >> 8 & 255, t[n++] = (f !== null ? 128 : 0) | // Global Color Table Flag.
+  u, t[n++] = d, t[n++] = 0, f !== null)
+    for (var c = 0, p = f.length; c < p; ++c) {
+      var h = f[c];
       t[n++] = h >> 16 & 255, t[n++] = h >> 8 & 255, t[n++] = h & 255;
     }
   if (o !== null) {
@@ -436,25 +436,25 @@ function Re(t, e, r, i) {
     t[n++] = 33, t[n++] = 255, t[n++] = 11, t[n++] = 78, t[n++] = 69, t[n++] = 84, t[n++] = 83, t[n++] = 67, t[n++] = 65, t[n++] = 80, t[n++] = 69, t[n++] = 50, t[n++] = 46, t[n++] = 48, t[n++] = 3, t[n++] = 1, t[n++] = o & 255, t[n++] = o >> 8 & 255, t[n++] = 0;
   }
   var g = !1;
-  this.addFrame = function(v, y, w, x, A, m) {
-    if (g === !0 && (--n, g = !1), m = m === void 0 ? {} : m, v < 0 || y < 0 || v > 65535 || y > 65535)
+  this.addFrame = function(v, y, x, m, A, w) {
+    if (g === !0 && (--n, g = !1), w = w === void 0 ? {} : w, v < 0 || y < 0 || v > 65535 || y > 65535)
       throw new Error("x/y invalid.");
-    if (w <= 0 || x <= 0 || w > 65535 || x > 65535)
+    if (x <= 0 || m <= 0 || x > 65535 || m > 65535)
       throw new Error("Width/Height invalid.");
-    if (A.length < w * x)
+    if (A.length < x * m)
       throw new Error("Not enough pixels for the frame size.");
-    var j = !0, B = m.palette;
-    if (B == null && (j = !1, B = s), B == null)
+    var j = !0, B = w.palette;
+    if (B == null && (j = !1, B = f), B == null)
       throw new Error("Must supply either a local or global palette.");
     for (var I = l(B), C = 0; I >>= 1; ) ++C;
     I = 1 << C;
-    var S = m.delay === void 0 ? 0 : m.delay, M = m.disposal === void 0 ? 0 : m.disposal;
+    var S = w.delay === void 0 ? 0 : w.delay, M = w.disposal === void 0 ? 0 : w.disposal;
     if (M < 0 || M > 3)
       throw new Error("Disposal out of range.");
     var N = !1, O = 0;
-    if (m.transparent !== void 0 && m.transparent !== null && (N = !0, O = m.transparent, O < 0 || O >= I))
+    if (w.transparent !== void 0 && w.transparent !== null && (N = !0, O = w.transparent, O < 0 || O >= I))
       throw new Error("Transparent color index.");
-    if ((M !== 0 || N || S !== 0) && (t[n++] = 33, t[n++] = 249, t[n++] = 4, t[n++] = M << 2 | (N === !0 ? 1 : 0), t[n++] = S & 255, t[n++] = S >> 8 & 255, t[n++] = O, t[n++] = 0), t[n++] = 44, t[n++] = v & 255, t[n++] = v >> 8 & 255, t[n++] = y & 255, t[n++] = y >> 8 & 255, t[n++] = w & 255, t[n++] = w >> 8 & 255, t[n++] = x & 255, t[n++] = x >> 8 & 255, t[n++] = j === !0 ? 128 | C - 1 : 0, j === !0)
+    if ((M !== 0 || N || S !== 0) && (t[n++] = 33, t[n++] = 249, t[n++] = 4, t[n++] = M << 2 | (N === !0 ? 1 : 0), t[n++] = S & 255, t[n++] = S >> 8 & 255, t[n++] = O, t[n++] = 0), t[n++] = 44, t[n++] = v & 255, t[n++] = v >> 8 & 255, t[n++] = y & 255, t[n++] = y >> 8 & 255, t[n++] = x & 255, t[n++] = x >> 8 & 255, t[n++] = m & 255, t[n++] = m >> 8 & 255, t[n++] = j === !0 ? 128 | C - 1 : 0, j === !0)
       for (var Z = 0, U = B.length; Z < U; ++Z) {
         var E = B[Z];
         t[n++] = E >> 16 & 255, t[n++] = E >> 8 & 255, t[n++] = E & 255;
@@ -479,36 +479,36 @@ function Re(t, e, r, i) {
 }
 function qe(t, e, r, a) {
   t[e++] = r;
-  var n = e++, i = 1 << r, o = i - 1, s = i + 1, l = s + 1, c = r + 1, d = 0, f = 0;
-  function u(m) {
-    for (; d >= m; )
-      t[e++] = f & 255, f >>= 8, d -= 8, e === n + 256 && (t[n] = 255, n = e++);
+  var n = e++, i = 1 << r, o = i - 1, f = i + 1, l = f + 1, u = r + 1, d = 0, s = 0;
+  function c(w) {
+    for (; d >= w; )
+      t[e++] = s & 255, s >>= 8, d -= 8, e === n + 256 && (t[n] = 255, n = e++);
   }
-  function p(m) {
-    f |= m << d, d += c, u(8);
+  function p(w) {
+    s |= w << d, d += u, c(8);
   }
   var h = a[0] & o, g = {};
   p(i);
   for (var v = 1, y = a.length; v < y; ++v) {
-    var w = a[v] & o, x = h << 8 | w, A = g[x];
+    var x = a[v] & o, m = h << 8 | x, A = g[m];
     if (A === void 0) {
-      for (f |= h << d, d += c; d >= 8; )
-        t[e++] = f & 255, f >>= 8, d -= 8, e === n + 256 && (t[n] = 255, n = e++);
-      l === 4096 ? (p(i), l = s + 1, c = r + 1, g = {}) : (l >= 1 << c && ++c, g[x] = l++), h = w;
+      for (s |= h << d, d += u; d >= 8; )
+        t[e++] = s & 255, s >>= 8, d -= 8, e === n + 256 && (t[n] = 255, n = e++);
+      l === 4096 ? (p(i), l = f + 1, u = r + 1, g = {}) : (l >= 1 << u && ++u, g[m] = l++), h = x;
     } else
       h = A;
   }
-  return p(h), p(s), u(1), n + 1 === e ? t[n] = 0 : (t[n] = e - n - 1, t[e++] = 0), e;
+  return p(h), p(f), c(1), n + 1 === e ? t[n] = 0 : (t[n] = e - n - 1, t[e++] = 0), e;
 }
 function Le(t) {
   var e = 0;
   if (t[e++] !== 71 || t[e++] !== 73 || t[e++] !== 70 || t[e++] !== 56 || (t[e++] + 1 & 253) !== 56 || t[e++] !== 97)
     throw new Error("Invalid GIF 87a/89a header.");
-  var r = t[e++] | t[e++] << 8, a = t[e++] | t[e++] << 8, n = t[e++], i = n >> 7, o = n & 7, s = 1 << o + 1;
+  var r = t[e++] | t[e++] << 8, a = t[e++] | t[e++] << 8, n = t[e++], i = n >> 7, o = n & 7, f = 1 << o + 1;
   t[e++], t[e++];
-  var l = null, c = null;
-  i && (l = e, c = s, e += s * 3);
-  var d = !0, f = [], u = 0, p = null, h = 0, g = null;
+  var l = null, u = null;
+  i && (l = e, u = f, e += f * 3);
+  var d = !0, s = [], c = 0, p = null, h = 0, g = null;
   for (this.width = r, this.height = a; d && e < t.length; )
     switch (t[e++]) {
       case 33:
@@ -531,7 +531,7 @@ function Le(t) {
             if (t[e++] !== 4 || t[e + 4] !== 0)
               throw new Error("Invalid graphics extension block.");
             var y = t[e++];
-            u = t[e++] | t[e++] << 8, p = t[e++], y & 1 || (p = null), h = y >> 2 & 7, e++;
+            c = t[e++] | t[e++] << 8, p = t[e++], y & 1 || (p = null), h = y >> 2 & 7, e++;
             break;
           case 254:
             for (; ; ) {
@@ -548,7 +548,7 @@ function Le(t) {
         }
         break;
       case 44:
-        var w = t[e++] | t[e++] << 8, x = t[e++] | t[e++] << 8, A = t[e++] | t[e++] << 8, m = t[e++] | t[e++] << 8, j = t[e++], B = j >> 7, I = j >> 6 & 1, C = j & 7, S = 1 << C + 1, M = l, N = c, O = !1;
+        var x = t[e++] | t[e++] << 8, m = t[e++] | t[e++] << 8, A = t[e++] | t[e++] << 8, w = t[e++] | t[e++] << 8, j = t[e++], B = j >> 7, I = j >> 6 & 1, C = j & 7, S = 1 << C + 1, M = l, N = u, O = !1;
         if (B) {
           var O = !0;
           M = e, N = S, e += S * 3;
@@ -560,11 +560,11 @@ function Le(t) {
           if (v === 0) break;
           e += v;
         }
-        f.push({
-          x: w,
-          y: x,
+        s.push({
+          x,
+          y: m,
           width: A,
-          height: m,
+          height: w,
           has_local_palette: O,
           palette_offset: M,
           palette_size: N,
@@ -572,7 +572,7 @@ function Le(t) {
           data_length: e - Z,
           transparent_index: p,
           interlaced: !!I,
-          delay: u,
+          delay: c,
           disposal: h
         });
         break;
@@ -583,13 +583,13 @@ function Le(t) {
         throw new Error("Unknown gif block: 0x" + t[e - 1].toString(16));
     }
   this.numFrames = function() {
-    return f.length;
+    return s.length;
   }, this.loopCount = function() {
     return g;
   }, this.frameInfo = function(U) {
-    if (U < 0 || U >= f.length)
+    if (U < 0 || U >= s.length)
       throw new Error("Frame index out of range.");
-    return f[U];
+    return s[U];
   }, this.decodeAndBlitFrameBGRA = function(U, E) {
     var _ = this.frameInfo(U), Y = _.width * _.height, z = new Uint8Array(Y);
     ve(
@@ -637,31 +637,31 @@ function Le(t) {
   };
 }
 function ve(t, e, r, a) {
-  for (var n = t[e++], i = 1 << n, o = i + 1, s = o + 1, l = n + 1, c = (1 << l) - 1, d = 0, f = 0, u = 0, p = t[e++], h = new Int32Array(4096), g = null; ; ) {
+  for (var n = t[e++], i = 1 << n, o = i + 1, f = o + 1, l = n + 1, u = (1 << l) - 1, d = 0, s = 0, c = 0, p = t[e++], h = new Int32Array(4096), g = null; ; ) {
     for (; d < 16 && p !== 0; )
-      f |= t[e++] << d, d += 8, p === 1 ? p = t[e++] : --p;
+      s |= t[e++] << d, d += 8, p === 1 ? p = t[e++] : --p;
     if (d < l)
       break;
-    var v = f & c;
-    if (f >>= l, d -= l, v === i) {
-      s = o + 1, l = n + 1, c = (1 << l) - 1, g = null;
+    var v = s & u;
+    if (s >>= l, d -= l, v === i) {
+      f = o + 1, l = n + 1, u = (1 << l) - 1, g = null;
       continue;
     } else if (v === o)
       break;
-    for (var y = v < s ? v : g, w = 0, x = y; x > i; )
-      x = h[x] >> 8, ++w;
-    var A = x, m = u + w + (y !== v ? 1 : 0);
-    if (m > a) {
+    for (var y = v < f ? v : g, x = 0, m = y; m > i; )
+      m = h[m] >> 8, ++x;
+    var A = m, w = c + x + (y !== v ? 1 : 0);
+    if (w > a) {
       console.log("Warning, gif stream longer than expected.");
       return;
     }
-    r[u++] = A, u += w;
-    var j = u;
-    for (y !== v && (r[u++] = A), x = y; w--; )
-      x = h[x], r[--j] = x & 255, x >>= 8;
-    g !== null && s < 4096 && (h[s++] = g << 8 | A, s >= c + 1 && l < 12 && (++l, c = c << 1 | 1)), g = v;
+    r[c++] = A, c += x;
+    var j = c;
+    for (y !== v && (r[c++] = A), m = y; x--; )
+      m = h[m], r[--j] = m & 255, m >>= 8;
+    g !== null && f < 4096 && (h[f++] = g << 8 | A, f >= u + 1 && l < 12 && (++l, u = u << 1 | 1)), g = v;
   }
-  return u !== a && console.log("Warning, gif stream shorter than expected."), r;
+  return c !== a && console.log("Warning, gif stream shorter than expected."), r;
 }
 try {
   Ge = fe.GifWriter = Re, ze = fe.GifReader = Le;
@@ -694,34 +694,34 @@ function We(t, e, r) {
 }
 var He = We, Ne = He;
 function pe(t, e, r) {
-  var a = t.length, n = e.arrayArgs.length, i = e.indexArgs.length > 0, o = [], s = [], l = 0, c = 0, d, f;
+  var a = t.length, n = e.arrayArgs.length, i = e.indexArgs.length > 0, o = [], f = [], l = 0, u = 0, d, s;
   for (d = 0; d < a; ++d)
-    s.push(["i", d, "=0"].join(""));
-  for (f = 0; f < n; ++f)
+    f.push(["i", d, "=0"].join(""));
+  for (s = 0; s < n; ++s)
     for (d = 0; d < a; ++d)
-      c = l, l = t[d], d === 0 ? s.push(["d", f, "s", d, "=t", f, "p", l].join("")) : s.push(["d", f, "s", d, "=(t", f, "p", l, "-s", c, "*t", f, "p", c, ")"].join(""));
-  for (s.length > 0 && o.push("var " + s.join(",")), d = a - 1; d >= 0; --d)
+      u = l, l = t[d], d === 0 ? f.push(["d", s, "s", d, "=t", s, "p", l].join("")) : f.push(["d", s, "s", d, "=(t", s, "p", l, "-s", u, "*t", s, "p", u, ")"].join(""));
+  for (f.length > 0 && o.push("var " + f.join(",")), d = a - 1; d >= 0; --d)
     l = t[d], o.push(["for(i", d, "=0;i", d, "<s", l, ";++i", d, "){"].join(""));
   for (o.push(r), d = 0; d < a; ++d) {
-    for (c = l, l = t[d], f = 0; f < n; ++f)
-      o.push(["p", f, "+=d", f, "s", d].join(""));
-    i && (d > 0 && o.push(["index[", c, "]-=s", c].join("")), o.push(["++index[", l, "]"].join(""))), o.push("}");
+    for (u = l, l = t[d], s = 0; s < n; ++s)
+      o.push(["p", s, "+=d", s, "s", d].join(""));
+    i && (d > 0 && o.push(["index[", u, "]-=s", u].join("")), o.push(["++index[", l, "]"].join(""))), o.push("}");
   }
   return o.join(`
 `);
 }
 function Ze(t, e, r, a) {
-  for (var n = e.length, i = r.arrayArgs.length, o = r.blockSize, s = r.indexArgs.length > 0, l = [], c = 0; c < i; ++c)
-    l.push(["var offset", c, "=p", c].join(""));
-  for (var c = t; c < n; ++c)
-    l.push(["for(var j" + c + "=SS[", e[c], "]|0;j", c, ">0;){"].join("")), l.push(["if(j", c, "<", o, "){"].join("")), l.push(["s", e[c], "=j", c].join("")), l.push(["j", c, "=0"].join("")), l.push(["}else{s", e[c], "=", o].join("")), l.push(["j", c, "-=", o, "}"].join("")), s && l.push(["index[", e[c], "]=j", c].join(""));
-  for (var c = 0; c < i; ++c) {
-    for (var d = ["offset" + c], f = t; f < n; ++f)
-      d.push(["j", f, "*t", c, "p", e[f]].join(""));
-    l.push(["p", c, "=(", d.join("+"), ")"].join(""));
+  for (var n = e.length, i = r.arrayArgs.length, o = r.blockSize, f = r.indexArgs.length > 0, l = [], u = 0; u < i; ++u)
+    l.push(["var offset", u, "=p", u].join(""));
+  for (var u = t; u < n; ++u)
+    l.push(["for(var j" + u + "=SS[", e[u], "]|0;j", u, ">0;){"].join("")), l.push(["if(j", u, "<", o, "){"].join("")), l.push(["s", e[u], "=j", u].join("")), l.push(["j", u, "=0"].join("")), l.push(["}else{s", e[u], "=", o].join("")), l.push(["j", u, "-=", o, "}"].join("")), f && l.push(["index[", e[u], "]=j", u].join(""));
+  for (var u = 0; u < i; ++u) {
+    for (var d = ["offset" + u], s = t; s < n; ++s)
+      d.push(["j", s, "*t", u, "p", e[s]].join(""));
+    l.push(["p", u, "=(", d.join("+"), ")"].join(""));
   }
   l.push(pe(e, r, a));
-  for (var c = t; c < n; ++c)
+  for (var u = t; u < n; ++u)
     l.push("}");
   return l.join(`
 `);
@@ -737,24 +737,24 @@ function Xe(t) {
 }
 function se(t, e, r) {
   for (var a = t.body, n = [], i = [], o = 0; o < t.args.length; ++o) {
-    var s = t.args[o];
-    if (!(s.count <= 0)) {
-      var l = new RegExp(s.name, "g"), c = "", d = e.arrayArgs.indexOf(o);
+    var f = t.args[o];
+    if (!(f.count <= 0)) {
+      var l = new RegExp(f.name, "g"), u = "", d = e.arrayArgs.indexOf(o);
       switch (e.argTypes[o]) {
         case "offset":
-          var f = e.offsetArgIndex.indexOf(o), u = e.offsetArgs[f];
-          d = u.array, c = "+q" + f;
+          var s = e.offsetArgIndex.indexOf(o), c = e.offsetArgs[s];
+          d = c.array, u = "+q" + s;
         case "array":
-          c = "p" + d + c;
+          u = "p" + d + u;
           var p = "l" + o, h = "a" + d;
           if (e.arrayBlockIndices[d] === 0)
-            s.count === 1 ? r[d] === "generic" ? s.lvalue ? (n.push(["var ", p, "=", h, ".get(", c, ")"].join("")), a = a.replace(l, p), i.push([h, ".set(", c, ",", p, ")"].join(""))) : a = a.replace(l, [h, ".get(", c, ")"].join("")) : a = a.replace(l, [h, "[", c, "]"].join("")) : r[d] === "generic" ? (n.push(["var ", p, "=", h, ".get(", c, ")"].join("")), a = a.replace(l, p), s.lvalue && i.push([h, ".set(", c, ",", p, ")"].join(""))) : (n.push(["var ", p, "=", h, "[", c, "]"].join("")), a = a.replace(l, p), s.lvalue && i.push([h, "[", c, "]=", p].join("")));
+            f.count === 1 ? r[d] === "generic" ? f.lvalue ? (n.push(["var ", p, "=", h, ".get(", u, ")"].join("")), a = a.replace(l, p), i.push([h, ".set(", u, ",", p, ")"].join(""))) : a = a.replace(l, [h, ".get(", u, ")"].join("")) : a = a.replace(l, [h, "[", u, "]"].join("")) : r[d] === "generic" ? (n.push(["var ", p, "=", h, ".get(", u, ")"].join("")), a = a.replace(l, p), f.lvalue && i.push([h, ".set(", u, ",", p, ")"].join(""))) : (n.push(["var ", p, "=", h, "[", u, "]"].join("")), a = a.replace(l, p), f.lvalue && i.push([h, "[", u, "]=", p].join("")));
           else {
-            for (var g = [s.name], v = [c], y = 0; y < Math.abs(e.arrayBlockIndices[d]); y++)
+            for (var g = [f.name], v = [u], y = 0; y < Math.abs(e.arrayBlockIndices[d]); y++)
               g.push("\\s*\\[([^\\]]+)\\]"), v.push("$" + (y + 1) + "*t" + d + "b" + y);
-            if (l = new RegExp(g.join(""), "g"), c = v.join("+"), r[d] === "generic")
+            if (l = new RegExp(g.join(""), "g"), u = v.join("+"), r[d] === "generic")
               throw new Error("cwise: Generic arrays not supported in combination with blocks!");
-            a = a.replace(l, [h, "[", c, "]"].join(""));
+            a = a.replace(l, [h, "[", u, "]"].join(""));
           }
           break;
         case "scalar":
@@ -784,20 +784,20 @@ function Ye(t) {
 function Je(t, e) {
   for (var r = e[1].length - Math.abs(t.arrayBlockIndices[0]) | 0, a = new Array(t.arrayArgs.length), n = new Array(t.arrayArgs.length), i = 0; i < t.arrayArgs.length; ++i)
     n[i] = e[2 * i], a[i] = e[2 * i + 1];
-  for (var o = [], s = [], l = [], c = [], d = [], i = 0; i < t.arrayArgs.length; ++i) {
-    t.arrayBlockIndices[i] < 0 ? (l.push(0), c.push(r), o.push(r), s.push(r + t.arrayBlockIndices[i])) : (l.push(t.arrayBlockIndices[i]), c.push(t.arrayBlockIndices[i] + r), o.push(0), s.push(t.arrayBlockIndices[i]));
-    for (var f = [], u = 0; u < a[i].length; u++)
-      l[i] <= a[i][u] && a[i][u] < c[i] && f.push(a[i][u] - l[i]);
-    d.push(f);
+  for (var o = [], f = [], l = [], u = [], d = [], i = 0; i < t.arrayArgs.length; ++i) {
+    t.arrayBlockIndices[i] < 0 ? (l.push(0), u.push(r), o.push(r), f.push(r + t.arrayBlockIndices[i])) : (l.push(t.arrayBlockIndices[i]), u.push(t.arrayBlockIndices[i] + r), o.push(0), f.push(t.arrayBlockIndices[i]));
+    for (var s = [], c = 0; c < a[i].length; c++)
+      l[i] <= a[i][c] && a[i][c] < u[i] && s.push(a[i][c] - l[i]);
+    d.push(s);
   }
-  for (var p = ["SS"], h = ["'use strict'"], g = [], u = 0; u < r; ++u)
-    g.push(["s", u, "=SS[", u, "]"].join(""));
+  for (var p = ["SS"], h = ["'use strict'"], g = [], c = 0; c < r; ++c)
+    g.push(["s", c, "=SS[", c, "]"].join(""));
   for (var i = 0; i < t.arrayArgs.length; ++i) {
     p.push("a" + i), p.push("t" + i), p.push("p" + i);
-    for (var u = 0; u < r; ++u)
-      g.push(["t", i, "p", u, "=t", i, "[", l[i] + u, "]"].join(""));
-    for (var u = 0; u < Math.abs(t.arrayBlockIndices[i]); ++u)
-      g.push(["t", i, "b", u, "=t", i, "[", o[i] + u, "]"].join(""));
+    for (var c = 0; c < r; ++c)
+      g.push(["t", i, "p", c, "=t", i, "[", l[i] + c, "]"].join(""));
+    for (var c = 0; c < Math.abs(t.arrayBlockIndices[i]); ++c)
+      g.push(["t", i, "b", c, "=t", i, "[", o[i] + c, "]"].join(""));
   }
   for (var i = 0; i < t.scalarArgs.length; ++i)
     p.push("Y" + i);
@@ -807,21 +807,21 @@ function Je(t, e) {
     g.push(["index=[", v.join(","), "]"].join(""));
   }
   for (var i = 0; i < t.offsetArgs.length; ++i) {
-    for (var y = t.offsetArgs[i], w = [], u = 0; u < y.offset.length; ++u)
-      y.offset[u] !== 0 && (y.offset[u] === 1 ? w.push(["t", y.array, "p", u].join("")) : w.push([y.offset[u], "*t", y.array, "p", u].join("")));
-    w.length === 0 ? g.push("q" + i + "=0") : g.push(["q", i, "=", w.join("+")].join(""));
+    for (var y = t.offsetArgs[i], x = [], c = 0; c < y.offset.length; ++c)
+      y.offset[c] !== 0 && (y.offset[c] === 1 ? x.push(["t", y.array, "p", c].join("")) : x.push([y.offset[c], "*t", y.array, "p", c].join("")));
+    x.length === 0 ? g.push("q" + i + "=0") : g.push(["q", i, "=", x.join("+")].join(""));
   }
-  var x = Ne([].concat(t.pre.thisVars).concat(t.body.thisVars).concat(t.post.thisVars));
-  g = g.concat(x), g.length > 0 && h.push("var " + g.join(","));
+  var m = Ne([].concat(t.pre.thisVars).concat(t.body.thisVars).concat(t.post.thisVars));
+  g = g.concat(m), g.length > 0 && h.push("var " + g.join(","));
   for (var i = 0; i < t.arrayArgs.length; ++i)
     h.push("p" + i + "|=0");
   t.pre.body.length > 3 && h.push(se(t.pre, t, n));
-  var A = se(t.body, t, n), m = Xe(d);
-  m < r ? h.push(Ze(m, d[0], t, A)) : h.push(pe(d[0], t, A)), t.post.body.length > 3 && h.push(se(t.post, t, n)), t.debug && console.log("-----Generated cwise routine for ", e, `:
+  var A = se(t.body, t, n), w = Xe(d);
+  w < r ? h.push(Ze(w, d[0], t, A)) : h.push(pe(d[0], t, A)), t.post.body.length > 3 && h.push(se(t.post, t, n)), t.debug && console.log("-----Generated cwise routine for ", e, `:
 ` + h.join(`
 `) + `
 ----------`);
-  var j = [t.funcName || "unnamed", "_cwise_loop_", a[0].join("s"), "m", m, Ye(n)].join(""), B = new Function(["function ", j, "(", p.join(","), "){", h.join(`
+  var j = [t.funcName || "unnamed", "_cwise_loop_", a[0].join("s"), "m", w, Ye(n)].join(""), B = new Function(["function ", j, "(", p.join(","), "){", h.join(`
 `), "} return ", j].join(""));
   return B();
 }
@@ -836,8 +836,8 @@ function er(t) {
     // Slice shape so that we only retain the shape over which we iterate (which gets passed to the cwise operator as SS).
     Math.max(0, t.arrayBlockIndices[0]),
     t.arrayBlockIndices[0] < 0 ? "," + t.arrayBlockIndices[0] + ")" : ")"
-  ].join("")], s = [], l = [], c = 0; c < t.arrayArgs.length; ++c) {
-    var d = t.arrayArgs[c];
+  ].join("")], f = [], l = [], u = 0; u < t.arrayArgs.length; ++u) {
+    var d = t.arrayArgs[u];
     r.push([
       "t",
       d,
@@ -849,11 +849,11 @@ function er(t) {
       "=array",
       d,
       ".order"
-    ].join("")), n.push("t" + d), n.push("r" + d), i.push("t" + d), i.push("r" + d + ".join()"), o.push("array" + d + ".data"), o.push("array" + d + ".stride"), o.push("array" + d + ".offset|0"), c > 0 && (s.push("array" + t.arrayArgs[0] + ".shape.length===array" + d + ".shape.length+" + (Math.abs(t.arrayBlockIndices[0]) - Math.abs(t.arrayBlockIndices[c]))), l.push("array" + t.arrayArgs[0] + ".shape[shapeIndex+" + Math.max(0, t.arrayBlockIndices[0]) + "]===array" + d + ".shape[shapeIndex+" + Math.max(0, t.arrayBlockIndices[c]) + "]"));
+    ].join("")), n.push("t" + d), n.push("r" + d), i.push("t" + d), i.push("r" + d + ".join()"), o.push("array" + d + ".data"), o.push("array" + d + ".stride"), o.push("array" + d + ".offset|0"), u > 0 && (f.push("array" + t.arrayArgs[0] + ".shape.length===array" + d + ".shape.length+" + (Math.abs(t.arrayBlockIndices[0]) - Math.abs(t.arrayBlockIndices[u]))), l.push("array" + t.arrayArgs[0] + ".shape[shapeIndex+" + Math.max(0, t.arrayBlockIndices[0]) + "]===array" + d + ".shape[shapeIndex+" + Math.max(0, t.arrayBlockIndices[u]) + "]"));
   }
-  t.arrayArgs.length > 1 && (e.push("if (!(" + s.join(" && ") + ")) throw new Error('cwise: Arrays do not all have the same dimensionality!')"), e.push("for(var shapeIndex=array" + t.arrayArgs[0] + ".shape.length-" + Math.abs(t.arrayBlockIndices[0]) + "; shapeIndex-->0;) {"), e.push("if (!(" + l.join(" && ") + ")) throw new Error('cwise: Arrays do not all have the same shape!')"), e.push("}"));
-  for (var c = 0; c < t.scalarArgs.length; ++c)
-    o.push("scalar" + t.scalarArgs[c]);
+  t.arrayArgs.length > 1 && (e.push("if (!(" + f.join(" && ") + ")) throw new Error('cwise: Arrays do not all have the same dimensionality!')"), e.push("for(var shapeIndex=array" + t.arrayArgs[0] + ".shape.length-" + Math.abs(t.arrayBlockIndices[0]) + "; shapeIndex-->0;) {"), e.push("if (!(" + l.join(" && ") + ")) throw new Error('cwise: Arrays do not all have the same shape!')"), e.push("}"));
+  for (var u = 0; u < t.scalarArgs.length; ++u)
+    o.push("scalar" + t.scalarArgs[u]);
   r.push(["type=[", i.join(","), "].join()"].join("")), r.push("proc=CACHED[type]"), e.push("var " + r.join(",")), e.push([
     "if(!proc){",
     "CACHED[type]=proc=compile([",
@@ -866,9 +866,9 @@ function er(t) {
 ` + e.join(`
 `) + `
 ----------`);
-  var f = new Function("compile", e.join(`
+  var s = new Function("compile", e.join(`
 `));
-  return f(Qe.bind(void 0, t));
+  return s(Qe.bind(void 0, t));
 }
 var rr = er, tr = rr;
 function nr() {
@@ -939,40 +939,40 @@ const sr = {}, fr = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineP
     }, i = i || function() {
       this.queue(null);
     };
-    var s = !1, l = !1, c = [], d = !1, f = new r();
-    f.readable = f.writable = !0, f.paused = !1, f.autoDestroy = !(o && o.autoDestroy === !1), f.write = function(h) {
-      return n.call(this, h), !f.paused;
+    var f = !1, l = !1, u = [], d = !1, s = new r();
+    s.readable = s.writable = !0, s.paused = !1, s.autoDestroy = !(o && o.autoDestroy === !1), s.write = function(h) {
+      return n.call(this, h), !s.paused;
     };
-    function u() {
-      for (; c.length && !f.paused; ) {
-        var h = c.shift();
+    function c() {
+      for (; u.length && !s.paused; ) {
+        var h = u.shift();
         if (h === null)
-          return f.emit("end");
-        f.emit("data", h);
+          return s.emit("end");
+        s.emit("data", h);
       }
     }
-    f.queue = f.push = function(h) {
-      return d || (h === null && (d = !0), c.push(h), u()), f;
-    }, f.on("end", function() {
-      f.readable = !1, !f.writable && f.autoDestroy && process.nextTick(function() {
-        f.destroy();
+    s.queue = s.push = function(h) {
+      return d || (h === null && (d = !0), u.push(h), c()), s;
+    }, s.on("end", function() {
+      s.readable = !1, !s.writable && s.autoDestroy && process.nextTick(function() {
+        s.destroy();
       });
     });
     function p() {
-      f.writable = !1, i.call(f), !f.readable && f.autoDestroy && f.destroy();
+      s.writable = !1, i.call(s), !s.readable && s.autoDestroy && s.destroy();
     }
-    return f.end = function(h) {
-      if (!s)
-        return s = !0, arguments.length && f.write(h), p(), f;
-    }, f.destroy = function() {
+    return s.end = function(h) {
+      if (!f)
+        return f = !0, arguments.length && s.write(h), p(), s;
+    }, s.destroy = function() {
       if (!l)
-        return l = !0, s = !0, c.length = 0, f.writable = f.readable = !1, f.emit("close"), f;
-    }, f.pause = function() {
-      if (!f.paused)
-        return f.paused = !0, f;
-    }, f.resume = function() {
-      return f.paused && (f.paused = !1, f.emit("resume")), u(), f.paused || f.emit("drain"), f;
-    }, f;
+        return l = !0, f = !0, u.length = 0, s.writable = s.readable = !1, s.emit("close"), s;
+    }, s.pause = function() {
+      if (!s.paused)
+        return s.paused = !0, s;
+    }, s.resume = function() {
+      return s.paused && (s.paused = !1, s.emit("resume")), c(), s.paused || s.emit("drain"), s;
+    }, s;
   }
 })(or);
 var ur = cr;
@@ -984,7 +984,7 @@ function cr(t) {
   if (e === -1 || e <= 4) throw new TypeError("malformed data: URI");
   for (var r = t.substring(5, e).split(";"), a = !1, n = "US-ASCII", i = 0; i < r.length; i++)
     r[i] == "base64" ? a = !0 : r[i].indexOf("charset=") == 0 && (n = r[i].substring(8));
-  var o = unescape(t.substring(e + 1)), s = a ? "base64" : "ascii", l = new Buffer(o, s);
+  var o = unescape(t.substring(e + 1)), f = a ? "base64" : "ascii", l = new Buffer(o, f);
   return l.type = r[0] || "text/plain", l.charset = n, l;
 }
 var dr = Be, le = Oe, vr = fe.GifReader, hr = ur;
@@ -1005,8 +1005,8 @@ function ge(t, e) {
   var r;
   try {
     r = new vr(t);
-  } catch (s) {
-    e(s);
+  } catch (f) {
+    e(f);
     return;
   }
   if (r.numFrames() > 0) {
@@ -1017,8 +1017,8 @@ function ge(t, e) {
           i.index(o, 0, 0, 0),
           i.index(o + 1, 0, 0, 0)
         ));
-    } catch (s) {
-      e(s);
+    } catch (f) {
+      e(f);
       return;
     }
     e(null, i.transpose(0, 2, 1));
@@ -1102,13 +1102,13 @@ var Ar = function(e, r) {
 P.conditional = Ar;
 var kr = function(e, r) {
   return function(a, n, i, o) {
-    for (var s = [], l = a.pos; r(a, n, i); ) {
-      var c = {};
-      if (o(a, e, n, c), a.pos === l)
+    for (var f = [], l = a.pos; r(a, n, i); ) {
+      var u = {};
+      if (o(a, e, n, u), a.pos === l)
         break;
-      l = a.pos, s.push(c);
+      l = a.pos, f.push(u);
     }
-    return s;
+    return f;
   };
 };
 P.loop = kr;
@@ -1166,8 +1166,8 @@ var Er = function(e) {
 k.readUnsigned = Er;
 var Cr = function(e, r) {
   return function(a, n, i) {
-    for (var o = typeof r == "function" ? r(a, n, i) : r, s = Q(e), l = new Array(o), c = 0; c < o; c++)
-      l[c] = s(a);
+    for (var o = typeof r == "function" ? r(a, n, i) : r, f = Q(e), l = new Array(o), u = 0; u < o; u++)
+      l[u] = f(a);
     return l;
   };
 };
@@ -1180,9 +1180,9 @@ var Sr = function(e, r, a) {
   return function(r) {
     for (var a = me()(r), n = new Array(8), i = 0; i < 8; i++)
       n[7 - i] = !!(a & 1 << i);
-    return Object.keys(e).reduce(function(o, s) {
-      var l = e[s];
-      return l.length ? o[s] = Sr(n, l.index, l.length) : o[s] = n[l.index], o;
+    return Object.keys(e).reduce(function(o, f) {
+      var l = e[f];
+      return l.length ? o[f] = Sr(n, l.index, l.length) : o[f] = n[l.index], o;
     }, {});
   };
 };
@@ -1192,18 +1192,18 @@ k.readBits = Tr;
     value: !0
   }), t.default = void 0;
   var e = P, r = k, a = {
-    blocks: function(u) {
-      for (var p = 0, h = [], g = u.data.length, v = 0, y = (0, r.readByte)()(u); y !== p && y; y = (0, r.readByte)()(u)) {
-        if (u.pos + y >= g) {
-          var w = g - u.pos;
-          h.push((0, r.readBytes)(w)(u)), v += w;
+    blocks: function(c) {
+      for (var p = 0, h = [], g = c.data.length, v = 0, y = (0, r.readByte)()(c); y !== p && y; y = (0, r.readByte)()(c)) {
+        if (c.pos + y >= g) {
+          var x = g - c.pos;
+          h.push((0, r.readBytes)(x)(c)), v += x;
           break;
         }
-        h.push((0, r.readBytes)(y)(u)), v += y;
+        h.push((0, r.readBytes)(y)(c)), v += y;
       }
-      for (var x = new Uint8Array(v), A = 0, m = 0; m < h.length; m++)
-        x.set(h[m], A), A += h[m].length;
-      return x;
+      for (var m = new Uint8Array(v), A = 0, w = 0; w < h.length; w++)
+        m.set(h[w], A), A += h[w].length;
+      return m;
     }
   }, n = (0, e.conditional)({
     gce: [{
@@ -1234,9 +1234,9 @@ k.readBits = Tr;
     }, {
       terminator: (0, r.readByte)()
     }]
-  }, function(f) {
-    var u = (0, r.peekBytes)(2)(f);
-    return u[0] === 33 && u[1] === 249;
+  }, function(s) {
+    var c = (0, r.peekBytes)(2)(s);
+    return c[0] === 33 && c[1] === 249;
   }), i = (0, e.conditional)({
     image: [{
       code: (0, r.readByte)()
@@ -1271,52 +1271,52 @@ k.readBits = Tr;
         })
       }]
     }, (0, e.conditional)({
-      lct: (0, r.readArray)(3, function(f, u, p) {
+      lct: (0, r.readArray)(3, function(s, c, p) {
         return Math.pow(2, p.descriptor.lct.size + 1);
       })
-    }, function(f, u, p) {
+    }, function(s, c, p) {
       return p.descriptor.lct.exists;
     }), {
       data: [{
         minCodeSize: (0, r.readByte)()
       }, a]
     }]
-  }, function(f) {
-    return (0, r.peekByte)()(f) === 44;
+  }, function(s) {
+    return (0, r.peekByte)()(s) === 44;
   }), o = (0, e.conditional)({
     text: [{
       codes: (0, r.readBytes)(2)
     }, {
       blockSize: (0, r.readByte)()
     }, {
-      preData: function(u, p, h) {
-        return (0, r.readBytes)(h.text.blockSize)(u);
+      preData: function(c, p, h) {
+        return (0, r.readBytes)(h.text.blockSize)(c);
       }
     }, a]
-  }, function(f) {
-    var u = (0, r.peekBytes)(2)(f);
-    return u[0] === 33 && u[1] === 1;
-  }), s = (0, e.conditional)({
+  }, function(s) {
+    var c = (0, r.peekBytes)(2)(s);
+    return c[0] === 33 && c[1] === 1;
+  }), f = (0, e.conditional)({
     application: [{
       codes: (0, r.readBytes)(2)
     }, {
       blockSize: (0, r.readByte)()
     }, {
-      id: function(u, p, h) {
-        return (0, r.readString)(h.blockSize)(u);
+      id: function(c, p, h) {
+        return (0, r.readString)(h.blockSize)(c);
       }
     }, a]
-  }, function(f) {
-    var u = (0, r.peekBytes)(2)(f);
-    return u[0] === 33 && u[1] === 255;
+  }, function(s) {
+    var c = (0, r.peekBytes)(2)(s);
+    return c[0] === 33 && c[1] === 255;
   }), l = (0, e.conditional)({
     comment: [{
       codes: (0, r.readBytes)(2)
     }, a]
-  }, function(f) {
-    var u = (0, r.peekBytes)(2)(f);
-    return u[0] === 33 && u[1] === 254;
-  }), c = [
+  }, function(s) {
+    var c = (0, r.peekBytes)(2)(s);
+    return c[0] === 33 && c[1] === 254;
+  }), u = [
     {
       header: [{
         signature: (0, r.readString)(3)
@@ -1353,20 +1353,20 @@ k.readBits = Tr;
       }]
     },
     (0, e.conditional)({
-      gct: (0, r.readArray)(3, function(f, u) {
-        return Math.pow(2, u.lsd.gct.size + 1);
+      gct: (0, r.readArray)(3, function(s, c) {
+        return Math.pow(2, c.lsd.gct.size + 1);
       })
-    }, function(f, u) {
-      return u.lsd.gct.exists;
+    }, function(s, c) {
+      return c.lsd.gct.exists;
     }),
     // content frames
     {
-      frames: (0, e.loop)([n, s, l, i, o], function(f) {
-        var u = (0, r.peekByte)()(f);
-        return u === 33 || u === 44;
+      frames: (0, e.loop)([n, f, l, i, o], function(s) {
+        var c = (0, r.peekByte)()(s);
+        return c === 33 || c === 44;
       })
     }
-  ], d = c;
+  ], d = u;
   t.default = d;
 })(ye);
 var ee = {};
@@ -1375,11 +1375,11 @@ Object.defineProperty(ee, "__esModule", {
 });
 ee.deinterlace = void 0;
 var Ur = function(e, r) {
-  for (var a = new Array(e.length), n = e.length / r, i = function(u, p) {
+  for (var a = new Array(e.length), n = e.length / r, i = function(c, p) {
     var h = e.slice(p * r, (p + 1) * r);
-    a.splice.apply(a, [u * r, r].concat(h));
-  }, o = [0, 4, 2, 1], s = [8, 8, 4, 2], l = 0, c = 0; c < 4; c++)
-    for (var d = o[c]; d < n; d += s[c])
+    a.splice.apply(a, [c * r, r].concat(h));
+  }, o = [0, 4, 2, 1], f = [8, 8, 4, 2], l = 0, u = 0; u < 4; u++)
+    for (var d = o[u]; d < n; d += f[u])
       i(d, l), l++;
   return a;
 };
@@ -1390,29 +1390,29 @@ Object.defineProperty(re, "__esModule", {
 });
 re.lzw = void 0;
 var Dr = function(e, r, a) {
-  var n = 4096, i = -1, o = a, s, l, c, d, f, u, p, j, h, g, m, v, B, I, S, C, y = new Array(a), w = new Array(n), x = new Array(n), A = new Array(n + 1);
-  for (v = e, l = 1 << v, f = l + 1, s = l + 2, p = i, d = v + 1, c = (1 << d) - 1, h = 0; h < l; h++)
-    w[h] = 0, x[h] = h;
-  var m, j, B, I, C, S;
-  for (m = j = B = I = C = S = 0, g = 0; g < o; ) {
+  var n = 4096, i = -1, o = a, f, l, u, d, s, c, p, j, h, g, w, v, B, I, S, C, y = new Array(a), x = new Array(n), m = new Array(n), A = new Array(n + 1);
+  for (v = e, l = 1 << v, s = l + 1, f = l + 2, p = i, d = v + 1, u = (1 << d) - 1, h = 0; h < l; h++)
+    x[h] = 0, m[h] = h;
+  var w, j, B, I, C, S;
+  for (w = j = B = I = C = S = 0, g = 0; g < o; ) {
     if (I === 0) {
       if (j < d) {
-        m += r[S] << j, j += 8, S++;
+        w += r[S] << j, j += 8, S++;
         continue;
       }
-      if (h = m & c, m >>= d, j -= d, h > s || h == f)
+      if (h = w & u, w >>= d, j -= d, h > f || h == s)
         break;
       if (h == l) {
-        d = v + 1, c = (1 << d) - 1, s = l + 2, p = i;
+        d = v + 1, u = (1 << d) - 1, f = l + 2, p = i;
         continue;
       }
       if (p == i) {
-        A[I++] = x[h], p = h, B = h;
+        A[I++] = m[h], p = h, B = h;
         continue;
       }
-      for (u = h, h == s && (A[I++] = B, h = p); h > l; )
-        A[I++] = x[h], h = w[h];
-      B = x[h] & 255, A[I++] = B, s < n && (w[s] = p, x[s] = B, s++, !(s & c) && s < n && (d++, c += s)), p = u;
+      for (c = h, h == f && (A[I++] = B, h = p); h > l; )
+        A[I++] = m[h], h = x[h];
+      B = m[h] & 255, A[I++] = B, f < n && (x[f] = p, m[f] = B, f++, !(f & u) && f < n && (d++, u += f)), p = c;
     }
     I--, y[C++] = A[I], g++;
   }
@@ -1433,8 +1433,8 @@ var Rr = function(e) {
   return (0, Pr.parse)((0, Mr.buildStream)(r), Fr.default);
 }, ce = H.parseGIF = Rr, qr = function(e) {
   for (var r = e.pixels.length, a = new Uint8ClampedArray(r * 4), n = 0; n < r; n++) {
-    var i = n * 4, o = e.pixels[n], s = e.colorTable[o] || [0, 0, 0];
-    a[i] = s[0], a[i + 1] = s[1], a[i + 2] = s[2], a[i + 3] = o !== e.transparentIndex ? 255 : 0;
+    var i = n * 4, o = e.pixels[n], f = e.colorTable[o] || [0, 0, 0];
+    a[i] = f[0], a[i + 1] = f[1], a[i + 2] = f[2], a[i + 3] = o !== e.transparentIndex ? 255 : 0;
   }
   return a;
 }, we = function(e, r, a) {
@@ -1444,7 +1444,7 @@ var Rr = function(e) {
   }
   var n = e.image, i = n.descriptor.width * n.descriptor.height, o = (0, zr.lzw)(n.data.minCodeSize, n.data.blocks, i);
   n.descriptor.lct.interlaced && (o = (0, Or.deinterlace)(o, n.descriptor.width));
-  var s = {
+  var f = {
     pixels: o,
     dims: {
       top: e.image.descriptor.top,
@@ -1453,7 +1453,7 @@ var Rr = function(e) {
       height: e.image.descriptor.height
     }
   };
-  return n.descriptor.lct && n.descriptor.lct.exists ? s.colorTable = n.lct : s.colorTable = r, e.gce && (s.delay = (e.gce.delay || 10) * 10, s.disposalType = e.gce.extras.disposal, e.gce.extras.transparentColorGiven && (s.transparentIndex = e.gce.transparentColorIndex)), a && (s.patch = qr(s)), s;
+  return n.descriptor.lct && n.descriptor.lct.exists ? f.colorTable = n.lct : f.colorTable = r, e.gce && (f.delay = (e.gce.delay || 10) * 10, f.disposalType = e.gce.extras.disposal, e.gce.extras.transparentColorGiven && (f.transparentIndex = e.gce.transparentColorIndex)), a && (f.patch = qr(f)), f;
 };
 H.decompressFrame = we;
 var Lr = function(e, r) {
@@ -1465,47 +1465,49 @@ var Lr = function(e, r) {
 };
 ue = H.decompressFrames = Lr;
 const Nr = async (t) => {
-  const e = await fetch(t), r = await Vr(t), a = await e.arrayBuffer(), n = ce(a), i = ue(n, !0);
-  return r.animated && (r.delayArray = i.map((o) => o.delay)), r;
+  const r = await (await fetch(t)).arrayBuffer(), a = ce(r), n = ue(a, !0), i = await Vr(t, !n[0].transparentIndex);
+  return i.animated && (i.delayArray = n.map((o) => o.delay)), i;
 }, Zr = async (t) => {
-  const e = await fetch(t), r = await $r(t), a = await e.arrayBuffer(), n = ce(a), i = ue(n, !0);
-  return r.animated && (r.delayArray = i.map((o) => o.delay)), r;
-}, $r = (t) => new Promise((e, r) => {
-  xe(t).then((a) => {
-    e(Hr(a.ndArrayArray, a.width, a.height));
-  }).catch((a) => r(a));
-}), Vr = (t) => new Promise((e, r) => {
-  xe(t).then((a) => {
-    e(Wr(a.ndArrayArray, a.width, a.height));
-  }).catch((a) => r(a));
-}), xe = (t) => new Promise((e, r) => {
-  xr(t, (a, n) => {
-    if (a)
-      r(a);
+  const r = await (await fetch(t)).arrayBuffer(), a = ce(r), n = ue(a, !0);
+  console.log(n);
+  const i = await $r(t, n[0].disposalType !== 2);
+  return i.animated && (i.delayArray = n.map((o) => o.delay)), i;
+}, $r = (t, e = !0) => new Promise((r, a) => {
+  xe(t, e).then((n) => {
+    r(Hr(n.ndArrayArray, n.width, n.height));
+  }).catch((n) => a(n));
+}), Vr = (t, e = !0) => new Promise((r, a) => {
+  xe(t, e).then((n) => {
+    r(Wr(n.ndArrayArray, n.width, n.height));
+  }).catch((n) => a(n));
+}), xe = (t, e = !0) => new Promise((r, a) => {
+  xr(t, (n, i) => {
+    if (n)
+      a(n);
     else {
-      const i = [], { shape: o } = n, [s, l, c, d] = o, f = l * c;
-      for (let u = 0; u < s; ++u) {
-        if (u > 0) {
-          const p = n.index(u, 0, 0, 0), h = n.index(u - 1, 0, 0, 0);
-          for (let g = 0; g < f; ++g) {
-            const v = p + g * d;
-            if (n.data[v + d - 1] === 0) {
-              const y = h + g * d;
-              for (let w = 0; w < d; ++w)
-                n.data[v + w] = n.data[y + w];
+      const o = [], { shape: f } = i, [l, u, d, s] = f, c = u * d;
+      for (let p = 0; p < l; ++p) {
+        if (p > 0 && e) {
+          const h = i.index(p, 0, 0, 0), g = i.index(p - 1, 0, 0, 0);
+          for (let v = 0; v < c; ++v) {
+            const y = h + v * s;
+            if (i.data[y + s - 1] === 0) {
+              const x = g + v * s;
+              for (let m = 0; m < s; ++m)
+                i.data[y + m] = i.data[x + m];
             }
           }
         }
-        i.push(n.pick(u));
+        o.push(i.pick(p));
       }
-      e({ ndArrayArray: i, width: l, height: c });
+      r({ ndArrayArray: o, width: u, height: d });
     }
   });
 }), Wr = (t, e, r) => {
   const a = document.createElement("canvas"), n = a.getContext("2d");
   return a.width = e * t.length, a.height = r, t.forEach((i, o) => {
-    const s = n.createImageData(e, r);
-    s.data.set(i.data.slice(e * r * 4 * o, e * r * 4 * (o + 1))), n.putImageData(s, e * o, 0);
+    const f = n.createImageData(e, r);
+    f.data.set(i.data.slice(e * r * 4 * o, e * r * 4 * (o + 1))), n.putImageData(f, e * o, 0);
   }), {
     animated: t.length > 1,
     width: e,
@@ -1516,9 +1518,9 @@ const Nr = async (t) => {
   const a = document.createElement("canvas"), n = a.getContext("2d");
   a.width = e, a.height = r;
   const i = [];
-  return t.forEach((o, s) => {
+  return t.forEach((o, f) => {
     const l = n.createImageData(e, r);
-    l.data.set(o.data.slice(e * r * 4 * s, e * r * 4 * (s + 1))), n.putImageData(l, 0, 0), i.push(a.toDataURL());
+    l.data.set(o.data.slice(e * r * 4 * f, e * r * 4 * (f + 1))), n.putImageData(l, 0, 0), i.push(a.toDataURL());
   }), {
     animated: t.length > 1,
     width: e,

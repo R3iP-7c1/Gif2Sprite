@@ -20,11 +20,11 @@ export interface G2ImgArray {
 
 export const gif2Sprite = async (url: string): Promise<G2Sprite> => {
   const response = await fetch(url);
-  const g2sprite: G2Sprite = await getG2Sprite(url);
-
+  
   const arrayBuffer = await response.arrayBuffer();
   const parsedGif = parseGIF(arrayBuffer);
   const frames = decompressFrames(parsedGif, true);
+  const g2sprite: G2Sprite = await getG2Sprite(url, !frames[0].transparentIndex);
   if (g2sprite.animated) g2sprite.delayArray = frames.map(frame => frame.delay);
 
   return g2sprite;
@@ -32,19 +32,20 @@ export const gif2Sprite = async (url: string): Promise<G2Sprite> => {
 
 export const gif2ImgArray = async (url: string): Promise<G2ImgArray> => {
   const response = await fetch(url);
-  const g2ImgArray: G2ImgArray = await getG2ImgArray(url);
-
+  
   const arrayBuffer = await response.arrayBuffer();
   const parsedGif = parseGIF(arrayBuffer);
   const frames = decompressFrames(parsedGif, true);
+  console.log(frames);
+  const g2ImgArray: G2ImgArray = await getG2ImgArray(url, frames[0].disposalType !== 2);
   if (g2ImgArray.animated) g2ImgArray.delayArray = frames.map(frame => frame.delay);
 
   return g2ImgArray;
 }
 
-const getG2ImgArray = (url: string): Promise<G2ImgArray> => {
+const getG2ImgArray = (url: string, coalescing = true): Promise<G2ImgArray> => {
   return new Promise((resolve, reject) => {
-    getImageDataArray(url)
+    getImageDataArray(url, coalescing)
       .then(res => {
         resolve(generateImgArray(res.ndArrayArray, res.width, res.height));
       })
@@ -52,9 +53,9 @@ const getG2ImgArray = (url: string): Promise<G2ImgArray> => {
   });
 }
 
-const getG2Sprite = (url: string): Promise<G2Sprite> => {
+const getG2Sprite = (url: string, coalescing = true): Promise<G2Sprite> => {
   return new Promise((resolve, reject) => {
-    getImageDataArray(url)
+    getImageDataArray(url, coalescing)
       .then(res => {
         resolve(generateSprite(res.ndArrayArray, res.width, res.height));
       })
@@ -62,7 +63,7 @@ const getG2Sprite = (url: string): Promise<G2Sprite> => {
   });
 }
 
-const getImageDataArray = (url: string): Promise<{ ndArrayArray: NdArray<Uint8Array>[], width: number, height: number }> => {
+const getImageDataArray = (url: string, coalescing = true): Promise<{ ndArrayArray: NdArray<Uint8Array>[], width: number, height: number }> => {
   return new Promise((resolve, reject) => {
     getPixels(url, (err, pixels) => {
       if (err) {
@@ -76,7 +77,7 @@ const getImageDataArray = (url: string): Promise<{ ndArrayArray: NdArray<Uint8Ar
         const numPixelsInFrame = width * height;
 
         for (let i = 0; i < frames; ++i) {
-          if (i > 0) {
+          if (i > 0 && coalescing) {
             const currIndex = pixels.index(i, 0, 0, 0)
             const prevIndex = pixels.index(i - 1, 0, 0, 0)
 
