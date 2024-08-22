@@ -10,9 +10,17 @@ export interface G2Sprite {
   delayArray?: number[]
 }
 
+export interface G2ImgArray {
+  animated: boolean,
+  width: number,
+  height: number,
+  imgArray: string[],
+  delayArray?: number[]
+}
+
 export const gif2Sprite = async (url: string): Promise<G2Sprite> => {
   const response = await fetch(url);
-  const g2sprite: G2Sprite = await getImageDataArray(url);
+  const g2sprite: G2Sprite = await getG2Sprite(url);
 
   const arrayBuffer = await response.arrayBuffer();
   const parsedGif = parseGIF(arrayBuffer);
@@ -22,43 +30,72 @@ export const gif2Sprite = async (url: string): Promise<G2Sprite> => {
   return g2sprite;
 }
 
-const getImageDataArray = (url: string): Promise<G2Sprite> => {
+export const gif2ImgArray = async (url: string): Promise<G2ImgArray> => {
+  const response = await fetch(url);
+  const g2ImgArray: G2ImgArray = await getG2ImgArray(url);
+
+  const arrayBuffer = await response.arrayBuffer();
+  const parsedGif = parseGIF(arrayBuffer);
+  const frames = decompressFrames(parsedGif, true);
+  if (g2ImgArray.animated) g2ImgArray.delayArray = frames.map(frame => frame.delay);
+
+  return g2ImgArray;
+}
+
+const getG2ImgArray = (url: string): Promise<G2ImgArray> => {
+  return new Promise((resolve, reject) => {
+    getImageDataArray(url)
+      .then(res => {
+        resolve(generateImgArray(res.ndArrayArray, res.width, res.height));
+      })
+      .catch(err => reject(err))
+  });
+}
+
+const getG2Sprite = (url: string): Promise<G2Sprite> => {
+  return new Promise((resolve, reject) => {
+    getImageDataArray(url)
+      .then(res => {
+        resolve(generateSprite(res.ndArrayArray, res.width, res.height));
+      })
+      .catch(err => reject(err))
+  });
+}
+
+const getImageDataArray = (url: string): Promise<{ ndArrayArray: NdArray<Uint8Array>[], width: number, height: number }> => {
   return new Promise((resolve, reject) => {
     getPixels(url, (err, pixels) => {
       if (err) {
-        console.warn(err);
         reject(err);
       } else {
         const imageNdarrayArray: NdArray<Uint8Array>[] = [];
         const { shape } = pixels;
 
-        // if (shape.length === 4) {
+        const [frames, width, height, channels] = shape;
 
-          const [frames, width, height, channels] = shape;
+        const numPixelsInFrame = width * height;
 
-          const numPixelsInFrame = width * height;
+        for (let i = 0; i < frames; ++i) {
+          if (i > 0) {
+            const currIndex = pixels.index(i, 0, 0, 0)
+            const prevIndex = pixels.index(i - 1, 0, 0, 0)
 
-          for (let i = 0; i < frames; ++i) {
-            if (i > 0) {
-              const currIndex = pixels.index(i, 0, 0, 0)
-              const prevIndex = pixels.index(i - 1, 0, 0, 0)
+            for (let j = 0; j < numPixelsInFrame; ++j) {
+              const curr = currIndex + j * channels
 
-              for (let j = 0; j < numPixelsInFrame; ++j) {
-                const curr = currIndex + j * channels
+              if (pixels.data[curr + channels - 1] === 0) {
+                const prev = prevIndex + j * channels
 
-                if (pixels.data[curr + channels - 1] === 0) {
-                  const prev = prevIndex + j * channels
-
-                  for (let k = 0; k < channels; ++k) {
-                    pixels.data[curr + k] = pixels.data[prev + k]
-                  }
+                for (let k = 0; k < channels; ++k) {
+                  pixels.data[curr + k] = pixels.data[prev + k]
                 }
               }
             }
-            imageNdarrayArray.push(pixels.pick(i));
           }
+          imageNdarrayArray.push(pixels.pick(i));
+        }
 
-          resolve(generateSprite(imageNdarrayArray, width, height));
+        resolve({ndArrayArray : imageNdarrayArray, width: width, height: height});
       }
     });
   });
@@ -82,5 +119,29 @@ const generateSprite = (imageNdarrayArray: NdArray<Uint8Array>[], width: number,
     width,
     height,
     spriteData: canvas.toDataURL(),
+  }
+}
+
+const generateImgArray = (imageNdarrayArray: NdArray<Uint8Array>[], width: number, height: number): G2ImgArray => {
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d');
+  canvas.width = width;
+  canvas.height = height;
+
+  const imgArray: string[] = [];
+
+  imageNdarrayArray.forEach((imageNdarray, index) => {
+    const imageData = ctx!.createImageData(width, height);
+    imageData.data.set(imageNdarray.data.slice(width * height * 4 * index, width * height * 4 * (index + 1)));
+
+    ctx!.putImageData(imageData, 0, 0);
+    imgArray.push(canvas.toDataURL());
+  });
+
+  return {
+    animated: imageNdarrayArray.length > 1,
+    width,
+    height,
+    imgArray: imgArray
   }
 }
