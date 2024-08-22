@@ -29,7 +29,7 @@ interface G2Sprite {
 ## Images array
 
 ```
-import { gif2Sprite } from 'gif2sprite';
+import { gif2ImgArray } from 'gif2sprite';
 
 const gifUrl = 'GifUrl';
 const mySpriteData = await gif2ImgArray(gifUrl);
