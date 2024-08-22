@@ -1,7 +1,11 @@
 {
   "name": "pi3r-gif2sprite",
   "private": false,
-  "version": "0.1.0",
+  "version": "0.1.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/R3iP-7c1/Gif2Sprite"
+  },
   "author": "Pi3R",
   "keywords": [
     "convert",
