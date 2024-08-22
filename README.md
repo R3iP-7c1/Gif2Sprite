@@ -38,7 +38,7 @@ const mySpriteData = await gif2ImgArray(gifUrl);
 The function ``` gif2ImgArray(url :string) ``` return a ```Promise<G2ImgArray>``` :
 
 ```
-interface G2Sprite {
+interface G2ImgArray {
   animated: boolean,      //the gif is an animated gif or not
   width: number,          //the width of the frames
   height: number,         //the height of the frames
